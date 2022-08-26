@@ -13,6 +13,7 @@ builder.Services
     .AddJwtBearer(options =>
     {
         options.MetadataAddress = builder.Configuration["Jwt:MetaDataAddress"]!;
+        options.RequireHttpsMetadata = builder.Configuration.GetValue<bool>("Jwt:RequireHttpsMetadata");
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidAudience = builder.Configuration["Jwt:ValidAudience"]
