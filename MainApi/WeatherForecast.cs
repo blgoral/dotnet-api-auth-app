@@ -1,8 +1,5 @@
-using Microsoft.AspNetCore.Authorization;
-
 namespace MainApi;
 
-[Authorize]
 public class WeatherForecast
 {
     public DateOnly Date { get; set; }
