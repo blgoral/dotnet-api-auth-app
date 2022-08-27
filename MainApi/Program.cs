@@ -14,15 +14,18 @@ builder.Services
         options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
-    .AddJwtBearer(options =>
-    {
-        options.MetadataAddress = builder.Configuration["Jwt:MetaDataAddress"]!;
-        options.RequireHttpsMetadata = builder.Configuration.GetValue<bool>("Jwt:RequireHttpsMetadata");
-        options.TokenValidationParameters = new TokenValidationParameters
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, jwtBearerOptions =>
         {
-            ValidAudience = builder.Configuration["Jwt:ValidAudience"]
-        };
-    });
+            jwtBearerOptions.MetadataAddress = builder.Configuration["Jwt:MetaDataAddress"]!;
+            jwtBearerOptions.RequireHttpsMetadata = builder.Configuration.GetValue<bool>("Jwt:RequireHttpsMetadata");
+            jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+        }
+    );
 
 builder.Services.AddAuthorization(options =>
 {
