@@ -18,6 +18,10 @@ builder.Services
         {
             jwtBearerOptions.MetadataAddress = builder.Configuration["Jwt:MetaDataAddress"]!;
             jwtBearerOptions.RequireHttpsMetadata = builder.Configuration.GetValue<bool>("Jwt:RequireHttpsMetadata");
+            jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false
+            };
         }
     );
 
